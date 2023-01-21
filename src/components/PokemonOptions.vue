@@ -1,39 +1,43 @@
 <template>
-   <div class="options-container">
-      <ul>
-         <li>1</li>
-         <li>2</li>
-         <li>3</li>
-         <li>4</li>
-      </ul>
-    </div>
+  <div class="options-container">
+    <ul>
+      <li v-for="pokemon in pokemons" :key="pokemon.id">
+        {{ pokemon.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+  export default {
+    props: {
+      pokemons: {
+        type: Array,
+        required: true,
+      },
+    },
+  };
 </script>
 
 <style scoped>
-ul {
+  ul {
     list-style-type: none;
-}
-li {
+  }
+  li {
     background-color: white;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     margin-bottom: 10px;
     width: 250px;
-}
+  }
 
-li:hover {
+  li:hover {
     background-color: rgba(0, 0, 0, 0.05);
-}
+  }
 
-.options-container {
+  .options-container {
     display: flex;
     justify-content: center;
-}
+  }
 </style>
