@@ -4,6 +4,11 @@
     <h1>¿Quién es este pokemon?</h1>
     <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
     <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer"/>
+    
+    <template class="fade-in" v-if="showAnswer">
+      <h2>{{ message }}</h2>
+      <button @click="newGame">Nuevo Juego</button>
+    </template>
   </div>
 </template>
 
@@ -12,7 +17,6 @@ import PokemonOptions from '@/components/PokemonOptions'
 import PokemonPicture from '@/components/PokemonPicture'
 
 import getPokemonsOptions from '@/helpers/getPokemonOptions'
-// console.log(getPokemonsOptions())
 
 export default {
   components: { PokemonOptions, PokemonPicture },
@@ -20,7 +24,9 @@ export default {
     return {
       pokemonArr: [],
       pokemon: null,
-      showPokemon: false
+      showPokemon: false,
+      showAnswer: false,
+      message: ''
     }
   },
   methods: {
@@ -29,9 +35,21 @@ export default {
       const rndInt = Math.floor(Math.random() * 4)
       this.pokemon = this.pokemonArr[ rndInt ]
     },
-    checkAnswer(pokemonId) {
-      console.log(pokemonId)
+    checkAnswer(selectedId) {
       this.showPokemon = true
+      this.showAnswer = true
+      if (selectedId === this.pokemon.id) {
+        this.message = `Correcto, ${this.pokemon.name}`
+      } else {
+        this.message = `Oops, era ${this.pokemon.name}`
+      }
+    },
+    newGame() {
+      this.showPokemon = false
+      this.showAnswer = false
+      this.pokemonArr = []
+      this.pokemon = null
+      this.mixPokemonArr()
     }
   },
   mounted() {
@@ -40,6 +58,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+button {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);    
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 100px;
+  justify-content: center;
+}
 
+button:hover {    
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+  /* 
+display: flex;
+
+   */
 </style>
