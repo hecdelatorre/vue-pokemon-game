@@ -12,7 +12,33 @@ describe('PokemonPicture', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
   
-  // TODO
-  //test('debe de mostrar la imagen oculta y el pokemon 151', ()=> {})
-  //test('dobo de mostrar la imagen del pokemon si showPokemon:true', ()=> {})
+  test('debe de mostrar la imagen oculta y el pokemon 151', ()=> {
+    const wrapper = shallowMount(PokemonPicture, {
+      props: {
+        pokemonId: 151,
+        showPokemon: false
+      }
+    })
+    const [ img1, img2 ] = wrapper.findAll('img')
+    expect(img1.exists()).toBeTruthy()
+    expect(img2).toBe(undefined)
+
+    //expect(img1.classes('hidden-pokemon')).toBeTruthy()
+    expect(img1.classes('hidden-pokemon')).toBe(true)
+    expect(img1.attributes('src')).toBe('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/151.svg')
+
+  })
+  
+  test('debe de mostrar la imagen del pokemon si showPokemon:true', ()=> {
+     const wrapperi = shallowMount(PokemonPicture, {
+      props: {
+        pokemonId: 151,
+        showPokemon: true
+      }
+    })
+    const img1 = wrapperi.find('img')
+    expect(img1.exists()).toBeTruthy()
+    
+
+  })
 })
