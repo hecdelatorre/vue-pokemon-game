@@ -56,4 +56,22 @@ describe('PokemonPage', () => {
   expect(picture.attributes('pokemonid')).toBe('1')
   expect(options.attributes('pokemons')).toBeTruthy()
   })
+  
+  test('Pruebas con checkAnswer', () => {
+    const wrapper = shallowMount(PokemonPage, {
+      data() {
+        return {
+          pokemonArr: pokemons,
+          pokemon: pokemons[4],
+          showPokemon: false,
+          showAnswer: false,
+          message: ''
+        }
+      }
+    })
+
+    wrapper.vm.checkAnswer(4)
+
+  })
+
 })
