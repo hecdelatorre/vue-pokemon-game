@@ -40,6 +40,10 @@ npm run test:unit getPokemonOptions
 npm run test:unit PokemonPicture
 ```
 
+```
+npm run test:unit /PokemonOptions
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
