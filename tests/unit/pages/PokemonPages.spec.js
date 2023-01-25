@@ -57,12 +57,12 @@ describe('PokemonPage', () => {
   expect(options.attributes('pokemons')).toBeTruthy()
   })
   
-  test('Pruebas con checkAnswer', () => {
+  test('Pruebas con checkAnswer', async() => {
     const wrapper = shallowMount(PokemonPage, {
       data() {
         return {
           pokemonArr: pokemons,
-          pokemon: pokemons[4],
+          pokemon: pokemons[3],
           showPokemon: false,
           showAnswer: false,
           message: ''
@@ -70,7 +70,15 @@ describe('PokemonPage', () => {
       }
     })
 
-    wrapper.vm.checkAnswer(4)
+    await wrapper.vm.checkAnswer(4)
+    expect(wrapper.find('h2').exists()).toBeTruthy()
+    expect(wrapper.vm.showPokemon).toBeTruthy()
+    expect(wrapper.find('h2').text()).toBe(`Correcto, ${pokemons[3].name}`)
+    
+    await wrapper.vm.checkAnswer(1)
+    expect(wrapper.vm.message).toBe(`Oops, era ${pokemons[3].name}`
+)
+
 
   })
 
